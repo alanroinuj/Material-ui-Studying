@@ -1,8 +1,9 @@
 import MiniDrawer from "./Page";
+import SignIn from "./Page/SignIn";
 
 function App() {
   return (
-    <MiniDrawer/>
+    <SignIn/>
   );
 }
 
