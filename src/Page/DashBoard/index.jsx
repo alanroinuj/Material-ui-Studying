@@ -26,14 +26,14 @@ import EditIcon from '@material-ui/icons/Edit';
 import DeleteIcon from '@material-ui/icons/Delete';
 import SyncIcon from '@material-ui/icons/Sync';
 
-import AlertDialog from '../Components/AlertDialog';
+import AlertDialog from '../../Components/AlertDialog';
 import  DialogActions from '@material-ui/core/DialogActions';
 import Button from '@material-ui/core/Button';
 
 import { useStyles } from './styles';
 
 
-export default function MiniDrawer() {
+const MiniDrawer = () => {
 
   const classes = useStyles();
   const theme = useTheme();
@@ -192,4 +192,6 @@ export default function MiniDrawer() {
       </main>
     </div>
   );
-}
+};
+
+export default MiniDrawer;

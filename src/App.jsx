@@ -1,9 +1,8 @@
-import MiniDrawer from "./Page";
-import SignIn from "./Page/SignIn";
+import PagesRoot from './Routes';
 
 function App() {
   return (
-    <SignIn/>
+    <PagesRoot/>
   );
 }
 
