@@ -1,6 +1,4 @@
-import React, { useState, useContext } from 'react';
-import { useHistory } from 'react-router-dom';
-import RegisterToken from '../../Context';
+import React, { useContext } from 'react';
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -16,49 +14,30 @@ import Container from '@material-ui/core/Container';
 import {Formik, Form, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 
+import { DataContext } from '../../Context/useContext';
+
 import {useStyles} from './styles';
 
 const initialValues = {
   username: '',
   password: '',
+  phone: '',
   remember: false
 };
 
-function login({email, password}){
-  if(email=== 'alan@email.com' && password=== '123'){
-    return {token: 'ewqiop321'};
-  }
-  return { error: 'E-mail ou senha inválidos'};
-};
+
+
 
 const SignIn = () => {
   const classes = useStyles();
-  const [values, setValues] = useState(initialValues); 
-  const {setToken} = useContext(RegisterToken);
-  const history = useHistory();
-
+  const { handleToastShow } = useContext(DataContext);
   const validations = Yup.object().shape({
-    username: Yup.string().email('Por favor informar o e-mail válido!'),
+    username: Yup.string().email('Por favor informar o e-mail válido!').required('E-mail é obrigatório'),
     password: Yup.string().required("Senha Obrigatória!")
   });
 
-  function handleChange(event){
-    const {value, name} = event.target;
-    setValues({
-      ...values,
-      [name]: value,
-    });
-  }
-  function handleSubmit(event){
-    event.preventDefault();
-
-    const { token } = login(values);
-
-    if(token){
-      setToken(token);
-      return history.post('/');
-    }
-    setValues(initialValues);
+  function handleSubmit(values){
+    console.log(values);
   }
 
 
@@ -77,7 +56,7 @@ const SignIn = () => {
           onSubmit={handleSubmit}
           validationSchema={validations}
           >
-            {(props) => (
+            {({errors, touched}) => (
               <Form className={classes.form} noValidate>
               <Field as={TextField}
               variant="outlined"
@@ -88,9 +67,7 @@ const SignIn = () => {
               label="E-mail"
               name="username"
               autoComplete="off"
-              onChange={handleChange}
-              value={values.email}
-              autoFocus
+              error={errors.username && touched.username}
               helperText={<ErrorMessage name="username"/>}
             />
             <Field as={TextField}
@@ -103,10 +80,10 @@ const SignIn = () => {
               type="password"
               id="password"
               autoComplete="current-password"
-              onChange={handleChange}
-              value={values.password}
+              error={errors.password && touched.password}
               helperText={<ErrorMessage name="password"/>}
             />
+                   
             <Field as={FormControlLabel}
               name="remember"
               control={<Checkbox  value="remember" color="primary" />}
@@ -118,11 +95,12 @@ const SignIn = () => {
               variant="contained"
               color="primary"
               className={classes.submit}
+              onClick={handleToastShow}
             >
               Acessar
             </Button>
             </Form>
-            )}
+            )}  
           </Formik>
           <Grid container>
             <Grid item xs>
