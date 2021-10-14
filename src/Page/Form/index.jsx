@@ -1,9 +1,11 @@
-import React, {useState} from 'react';
+import React, { useState} from 'react';
 
 import Container from '@material-ui/core/Container';
 import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 import TextField from '@material-ui/core/TextField';
+import  Checkbox  from '@material-ui/core/Checkbox';
+import Radio from '@material-ui/core/Radio';
 
 import MaskedInput from "react-text-mask";
 
@@ -11,6 +13,9 @@ import clsx from 'clsx';
 import './styles.css';
 import useStyles from './styles';
 import Address from './address';
+import PhysicalPerson from './physicalPerson';
+import LegalPerson from './legalPerson';
+
 
 function TextMaskPhone(props) {
   const { inputRef, ...other } = props;
@@ -47,32 +52,100 @@ function TextMaskCellPhone(props) {
 };
 
 
-const FormExemplo = () =>{
+const FormExemplo = (props) =>{
   const styles = useStyles();
   const [values, setValues] = useState("");
+
+  const [radioCheck, setRadioCheck] = useState('a');
+  const [ isShowInput, setShowInput ] = useState(false);
+
+
   const handleChange = event => {
     setValues(event.target.value);
   };
+
+  const handleChangeRadio = event => {
+    setRadioCheck(event.target.value);
+  }
+
+  function handleClickChangeLegal(){
+    setShowInput(true);
+  }
+  function handleClickChangePhysical(){
+    setShowInput(false);
+  }
+
   return(
     <>
       <Container maxWidth="md">
-        <Paper style={{ height: '100vh'}} >
+        <Paper >
           <header className="formHeader">
-            <Typography variant="h4" color="primary">
+            <Typography color="primary">
             Formulário
             </Typography>
           </header>
           <div className="divisor"/>
           <section>
+            <div className="typeCheck">
+             <div>
+              <label>
+                  <Checkbox/>
+                  Comprador
+                </label>
+                <label>
+                  <Checkbox/>
+                  Vendedor
+                </label>
+             </div>
+             <div className="radioGroup">
+              <label>
+                <Radio 
+                  id="radioLegalPerson"
+                  checked={radioCheck === 'a'}
+                  onChange={handleChangeRadio}
+                  value="a"
+                  onClick={handleClickChangeLegal}
+                />
+                  P. Jurídico
+             </label>
+             <label>
+                <Radio
+                  id="radioPhysicalPerson"
+                  checked={radioCheck === 'b'}
+                  onChange={handleChangeRadio}
+                  value="b"
+                  onClick={handleClickChangePhysical}
+                  />
+                  P. Físico
+             </label>
+             </div>
+            </div>
+            
             <TextField className={clsx(styles.input, styles.nameInput)}
-              label="Nome" 
+              label="Nome/Razão Social" 
               variant="outlined"
               size="small" 
               InputLabelProps={{
                 shrink: true,
               }}
             />
-
+            <label>
+              <Checkbox/>
+              Ativo
+            </label>
+            {isShowInput ? (
+              <LegalPerson/>
+            ) : (
+              <PhysicalPerson/>
+            )}
+            <TextField className={clsx(styles.input, styles.nameInput)}
+              label="E-mail" 
+              variant="outlined"
+              size="small" 
+              InputLabelProps={{
+                shrink: true,
+              }}
+            />
             <TextField className={styles.input}
               label="Telefone"
               variant="outlined" 

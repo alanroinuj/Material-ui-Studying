@@ -1,12 +1,13 @@
 import React from 'react';
 import DataContextProvider from './Context/useContext';
-import FormExemplo from './Page/Form';
-//import SignIn from './Page/SignIn';
+import MiniDrawer from './Page/DashBoard';
+
+
 
 function App() {
   return (
     <DataContextProvider>
-       <FormExemplo/>
+       <MiniDrawer/>
     </DataContextProvider>
   );
 }

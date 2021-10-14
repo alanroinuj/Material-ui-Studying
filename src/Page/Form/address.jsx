@@ -47,7 +47,9 @@ const Address = () =>{
         style={{ width: '15ch'}}
         value={dataCep.textmask} 
         onChange={searchingData}
-        //InputProps={{ inputComponent: TextMaskCep }}
+        InputLabelProps={{
+          shrink: true,
+        }}
       />
       <TextField className={clsx(styles.input, styles.AddressInput)}
         label="Logradouro" 

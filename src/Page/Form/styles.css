@@ -1,6 +1,6 @@
 .formHeader{
   margin: 0 auto;
-  padding: 1rem;
+  padding-top: 1rem;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -13,13 +13,19 @@
 }
 
 section{
-  margin: 2rem auto;
+  margin: .5rem auto;
   width: 80%;
   display: flex;
   flex-wrap: wrap;
 }
 
+.typeCheck{
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+}
+
 .groupAddress{
-  margin: 1.5rem auto;
+  margin: 1rem auto;
   box-shadow: 0px 0px 1px 0px rgba(0,0,0,2);
 }
