@@ -1,13 +1,13 @@
 import React from 'react';
 import DataContextProvider from './Context/useContext';
-import MiniDrawer from './Page/DashBoard';
+import Routes from './Routes';
 
 
 
 function App() {
   return (
     <DataContextProvider>
-       <MiniDrawer/>
+       <Routes/>
     </DataContextProvider>
   );
 }
